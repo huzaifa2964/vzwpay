@@ -3,10 +3,10 @@ const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 
 if (hamburger && navMenu) {
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+});
 }
 
 // Close mobile menu when clicking on a link
@@ -177,7 +177,7 @@ function showMessage(text, type) {
         messageDiv.style.animation = 'slideOut 0.3s ease';
         setTimeout(() => {
             if (document.body.contains(messageDiv)) {
-                document.body.removeChild(messageDiv);
+            document.body.removeChild(messageDiv);
             }
         }, 300);
     }, 5000);
