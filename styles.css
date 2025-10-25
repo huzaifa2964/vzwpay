@@ -53,13 +53,13 @@
 /* Mobile: make popup content fill screen and enlarge elements */
 @media (max-width: 768px) {
     .site-popup-body {
-        padding: 12px 14px 16px 14px; /* reduce side padding */
+        padding: 12px 14px 8px 14px; /* reduce side padding, smaller bottom because footer uses space */
         overflow: auto;
         display: flex;
         flex-direction: column;
-        justify-content: center; /* center content vertically */
+        justify-content: flex-start; /* place content at the top */
         align-items: center;
-        flex: 1 1 auto;
+        flex: 0 0 auto;
     }
 
     .site-popup-body .logo {
@@ -100,16 +100,32 @@
     }
 
     /* Make sticky footer compact and prominent */
+    /* Footer should take remaining space and center the button */
     .site-popup-footer {
         border-top: 0;
-        padding: 0;
+        padding: 12px 14px;
         background: transparent;
+        position: relative;
+        flex: 1 1 auto; /* take remaining vertical space */
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .site-popup-footer .sticky-call {
-        padding: 14px 16px;
-        font-size: 18px;
-        border-radius: 0;
+        padding: 12px 18px;
+        font-size: 20px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 92%;
+        height: 64px; /* visually large tappable area */
+    }
+
+    /* Ensure body doesn't overlap the footer area */
+    .site-popup-body {
+        padding-bottom: 12px;
     }
 
     /* Remove any extra default margins so content fills the viewport */
@@ -133,15 +149,16 @@
     right: 0;
     bottom: 0;
     z-index: 30;
-    background: #fff; /* keep footer readable */
+    background: transparent; /* keep footer readable */
+    display: flex;
+    justify-content: center; /* center the button */
 }
 .site-popup-body {
     /* ensure body content won't be hidden behind footer */
-    padding-bottom: 84px; /* ~ footer height + spacing */
+    padding-bottom: calc(var(--popup-footer-height,72px) + 24px); /* footer height + spacing */
 }
 .site-popup-footer .sticky-call {
-    display: block;
-    width: 100%;
+    display: inline-block;
     box-sizing: border-box;
 }
 
