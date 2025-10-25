@@ -144,6 +144,15 @@
     .site-popup-footer .sticky-call { border-radius: 0; }
 }
 
+/* Nudge the bottom CTA up slightly on small devices so it's not flush with the viewport edge */
+@media (max-width: 480px) {
+    .site-popup-footer { padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 10px); }
+    .site-popup-footer .sticky-call {
+        transform: translateY(-8px);
+        box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+    }
+}
+
 /* Prevent background scroll when popup is open */
 .no-scroll {
     overflow: hidden !important;
