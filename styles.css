@@ -140,6 +140,11 @@
     cursor: pointer;
 }
 
+/* Ensure any close button is hidden (defensive) */
+.site-popup-header .close-btn {
+    display: none !important;
+}
+
 .site-popup-body {
     padding: 20px;
     overflow: auto; /* only this area scrolls */
