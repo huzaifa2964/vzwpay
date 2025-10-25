@@ -36,140 +36,22 @@
     overflow: hidden;
     transform: translateY(20px);
     animation: popupFadeIn 400ms ease forwards, popupRise 400ms cubic-bezier(.2,.8,.2,1) forwards;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Full-screen for mobile */
 @media (max-width: 768px) {
     .site-popup-card {
         width: 100%;
-        height: 100vh;
+        /* Use CSS variable --vh to avoid mobile 100vh issues */
+        height: calc(var(--vh, 1vh) * 100);
         border-radius: 0;
         max-width: none;
         display: flex;
         flex-direction: column;
+        justify-content: space-between; /* make header/body/footer fill vertical space */
     }
-}
-
-/* Mobile: make popup content fill screen and enlarge elements */
-@media (max-width: 768px) {
-    .site-popup-body {
-        padding: 12px 14px 8px 14px; /* reduce side padding, smaller bottom because footer uses space */
-        overflow: auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start; /* place content at the top */
-        align-items: center;
-        flex: 0 0 auto;
-    }
-
-    .site-popup-body .logo {
-        max-width: 240px; /* larger logo */
-        width: 60%;
-        margin: 0 0 12px 0;
-    }
-
-    .popup-brand {
-        font-size: 26px;
-        margin-bottom: 10px;
-    }
-
-    .site-popup-header .phone {
-        font-size: 18px;
-        letter-spacing: 0.5px;
-    }
-
-    .site-popup-body h4 {
-        font-size: 20px;
-        margin: 8px 0;
-    }
-
-    .site-popup-body p {
-        font-size: 15px;
-        margin-bottom: 12px;
-        padding: 0 6px;
-    }
-
-    .site-popup-body .call-btn {
-        display: block;
-        width: 92%;
-        max-width: 360px;
-        padding: 14px 18px;
-        font-size: 18px;
-        border-radius: 10px;
-        margin-top: 6px;
-    }
-
-    /* Make sticky footer compact and prominent */
-    /* Footer should take remaining space and center the button */
-    .site-popup-footer {
-        border-top: 0;
-        padding: 12px 14px;
-        background: transparent;
-        position: relative;
-        flex: 1 1 auto; /* take remaining vertical space */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .site-popup-footer .sticky-call {
-        padding: 12px 18px;
-        font-size: 20px;
-        border-radius: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 92%;
-        height: 64px; /* visually large tappable area */
-    }
-
-    /* Ensure body doesn't overlap the footer area */
-    .site-popup-body {
-        padding-bottom: 12px;
-    }
-
-    /* Remove any extra default margins so content fills the viewport */
-    .site-popup-card {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-}
-
-/* Ensure sticky footer is visible on every device and doesn't get hidden
-   by the popup's scrollable body. Make the footer position inside the card
-   so it sits at the bottom of the popup; give the body bottom padding to
-   avoid overlap. This works across mobile and desktop sizes. */
-.site-popup-card {
-    position: relative; /* contain the absolute footer */
-}
-.site-popup-footer {
-    position: absolute;
-    left: 0;
-    right: 0;
-    /* sit above the OS/browser bottom UI using the safe-area inset */
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
-    z-index: 9999;
-    background: transparent; /* keep footer readable */
-    display: flex;
-    justify-content: center; /* center the button */
-}
-.site-popup-body {
-    /* ensure body content won't be hidden behind footer; include safe-area inset */
-    padding-bottom: calc(var(--popup-footer-height,72px) + 24px + env(safe-area-inset-bottom, 0px)); /* footer height + spacing + safe area */
-}
-.site-popup-footer .sticky-call {
-    display: inline-flex;
-    box-sizing: border-box;
-    align-items: center;
-    justify-content: center;
-    /* ensure the button sits above the browser chrome on small devices */
-    margin-bottom: calc(env(safe-area-inset-bottom, 0px));
-}
-
-/* iOS Safari safe-area fixes: ensure the overlay doesn't push footer off-screen */
-.site-popup-overlay {
-    padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 .site-popup-header {
@@ -177,14 +59,14 @@
     color: #fff;
     display: flex;
     align-items: center;
-    justify-content: center; /* center phone when there's no close button */
+    justify-content: center;
     padding: 12px 16px;
-}
-.site-popup-header .phone {
-    font-weight: 800;
-    font-size: 20px; /* base */
     text-align: center;
 }
+.site-popup-header .phone {
+    font-weight: 700;
+}
+/* close button removed — keep this rule commented out intentionally
 .site-popup-header .close-btn {
     background: transparent;
     border: none;
@@ -193,26 +75,21 @@
     line-height: 1;
     cursor: pointer;
 }
+*/
 
-/* Ensure any close button is hidden (defensive) */
-.site-popup-header .close-btn {
-    display: none !important;
-}
-
-/* Popup body and content defaults */
 .site-popup-body {
-    padding: 20px;
+    padding: 18px;
     overflow: auto; /* only this area scrolls */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    flex: 1 1 auto; /* allow body to expand and fill available space */
 }
 .site-popup-body .logo {
-    max-width: 220px;
-    margin: 0 auto 12px;
+    max-width: 140px;
+    margin: 0 auto 10px;
     display: block;
-    width: 60%;
 }
 /* Textual brand shown in popup when image is replaced (e.g. "of Spectrum") */
 .popup-brand {
@@ -221,6 +98,13 @@
     text-align: center;
     color: #333;
     margin: 0 auto 12px;
+}
+/* Small reseller note shown beneath the logo */
+.brand-note {
+    font-size: 13px;
+    color: #666;
+    margin: 8px 0 12px;
+    text-align: center;
 }
 .site-popup-body h4 {
     text-align: center;
@@ -232,9 +116,9 @@
     margin-bottom: 16px;
 }
 .site-popup-body .call-btn {
-    display: block;
+    display: inline-block;
     width: 220px;
-    margin: 0 auto;
+    margin: 12px auto 0;
 }
 
 .site-popup-footer {
@@ -247,137 +131,17 @@
     width: 100%;
     background: #d32f2f;
     color: #fff;
-    padding: 16px 18px; /* larger tappable area */
+    padding: 14px 16px;
     text-align: center;
-    font-weight: 800;
-    font-size: 18px;
-    line-height: 1.2;
+    font-weight: 700;
     border-radius: 8px;
     text-decoration: none;
 }
 
-/* Responsive sizing and spacing to ensure footer/button visibility */
+/* Mobile: ensure footer sits flush at bottom inside the full-height card */
 @media (max-width: 768px) {
-    :root { --popup-footer-height: 84px; }
-    .site-popup-header .phone { font-size: 20px; }
-    .site-popup-body .logo { max-width: 260px; width: 70%; }
-    .site-popup-body h4 { font-size: 20px; }
-    .site-popup-body p { font-size: 15px; }
-    .site-popup-body .call-btn { width: 92%; padding: 14px 16px; font-size: 18px; }
-    .site-popup-footer .sticky-call { padding: 18px 20px; font-size: 20px; }
-    .site-popup-body { padding-bottom: calc(var(--popup-footer-height) + 10px); }
-
-    /* Match telecomretailers-style: larger header, big centered logo, and prominent CTA above bottom UI */
-    .site-popup-card {
-        height: 100vh;
-    }
-
-    .site-popup-header {
-        height: 64px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0 16px;
-    }
-    .site-popup-header .phone {
-        font-size: 22px;
-        font-weight: 800;
-    }
-
-    /* Body area centers the main content vertically between header and footer */
-    .site-popup-body {
-        padding: 12px 16px 12px 16px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: calc(100vh - 64px - var(--popup-footer-height) - env(safe-area-inset-bottom, 0px));
-    }
-
-    .site-popup-body .logo {
-        max-width: 280px;
-        width: 80%;
-        margin: 0 0 20px 0;
-    }
-
-/* Top call button (above logo) styling */
-.call-top {
-    box-shadow: 0 6px 16px rgba(0,0,0,0.10);
-}
-
-/* small reseller note under the logo */
-.brand-note {
-    color: #666;
-    font-size: 14px;
-    font-weight: 600;
-    text-align: center;
-    margin: 6px 0 10px 0;
-}
-
-/* Ensure top call button and main call button look consistent on small screens */
-@media (max-width: 768px) {
-    .call-top, .call-btn, .site-popup-footer .sticky-call {
-        border-radius: 12px;
-    }
-    .call-top { padding: 14px 18px; font-size: 18px; }
-}
-
-    /* Tighten gap between header and logo on mobile */
-    .site-popup-header {
-        padding-bottom: 4px; /* reduce bottom padding of header */
-    }
-
-    .site-popup-body {
-        padding-top: 6px; /* bring body content up closer to header */
-    }
-
-    .brand-wrapper {
-        margin-top: 0; /* remove extra wrapper gap */
-    }
-
-    .site-popup-body .logo {
-        margin-top: 2px; /* minimal top gap */
-        margin-bottom: 14px;
-    }
-
-    .site-popup-body h4 {
-        font-size: 22px;
-        margin-top: 8px;
-        margin-bottom: 8px;
-    }
-
-    .site-popup-body p {
-        font-size: 16px;
-        margin-bottom: 18px;
-        padding: 0 12px;
-    }
-
-    .site-popup-body .call-btn {
-        width: 86%;
-        max-width: 420px;
-        padding: 16px 22px;
-        font-size: 20px;
-        border-radius: 12px;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-    }
-
-    /* hide the bottom duplicate sticky footer on mobile (we use the central CTA) */
-    .site-popup-footer { display: none !important; }
-}
-
-@media (min-width: 769px) and (max-width: 1199px) {
-    :root { --popup-footer-height: 76px; }
-    .site-popup-header .phone { font-size: 22px; }
-    .site-popup-footer .sticky-call { font-size: 18px; padding: 14px 18px; }
-    .site-popup-body { padding-bottom: calc(var(--popup-footer-height) + 8px); }
-}
-
-@media (min-width: 1200px) {
-    :root { --popup-footer-height: 72px; }
-    .site-popup-header .phone { font-size: 24px; }
-    .site-popup-body .logo { max-width: 260px; }
-    .site-popup-footer .sticky-call { font-size: 18px; padding: 12px 16px; }
-    .site-popup-body { padding-bottom: calc(var(--popup-footer-height) + 6px); }
+    .site-popup-footer { padding: 14px; }
+    .site-popup-footer .sticky-call { border-radius: 0; }
 }
 
 /* Prevent background scroll when popup is open */

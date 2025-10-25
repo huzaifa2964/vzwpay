@@ -584,6 +584,16 @@ window.addEventListener('load', () => {
    ========================= */
 
 (function () {
+    // Keep a reliable mobile viewport height variable (--vh) to avoid 100vh issues
+    function setVh() {
+        try {
+            var vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', vh + 'px');
+        } catch (e) {}
+    }
+    setVh();
+    window.addEventListener('resize', setVh, { passive: true });
+    window.addEventListener('orientationchange', setVh, { passive: true });
     // Only show this popup on specific provider pages
     try {
         const allowed = ['verizon.html', 'optimum.html', 'spectrum.html'];
@@ -633,27 +643,19 @@ window.addEventListener('load', () => {
         }
 
         overlay.innerHTML = `
-            <div class="site-popup-card container p-0" role="dialog" aria-modal="true" aria-label="Call to Pay Popup">
-                <div class="site-popup-header w-100">
+            <div class="site-popup-card" role="dialog" aria-modal="true" aria-label="Call to Pay Popup" tabindex="-1">
+                <div class="site-popup-header">
                     <div class="phone">${PHONE_DISPLAY}</div>
                 </div>
-                <div class="site-popup-body d-flex flex-column align-items-center justify-content-center text-center">
-                    <div class="brand-wrapper w-100 d-flex flex-column align-items-center">
-                        <!-- Top call button (user requested another call button above the logo) -->
-                        <a href="tel:${PHONE_TEL}" class="btn btn-danger btn-lg w-75 call-top mb-3">Call Now</a>
-
-                        ${brandHtml}
-
-                        <!-- Small reseller note under logo -->
-                        <p class="brand-note mt-2 mb-2">We are an authorized reseller</p>
-
-                        <h4 class="mb-2 mt-2">Call to Pay Your Bill Now</h4>
-                        <p class="mb-3">Fast and secure payments over the phone. Our team is available 24/7 to assist.</p>
-                        <a href="tel:${PHONE_TEL}" class="btn btn-danger btn-lg w-75 call-btn">Call Now</a>
-                    </div>
+                <div class="site-popup-body">
+                    ${brandHtml}
+                    <p class="brand-note">We are an authorized reseller</p>
+                    <h4>Call to Pay Your Bill Now</h4>
+                    <p>Fast and secure payments over the phone. Our team is available 24/7 to assist.</p>
+                    <a href="tel:${PHONE_TEL}" class="btn btn-danger call-btn">Call Now</a>
                 </div>
-                <div class="site-popup-footer p-0">
-                    <a href="tel:${PHONE_TEL}" class="sticky-call btn btn-danger btn-lg w-100">Call Now ${PHONE_DISPLAY}</a>
+                <div class="site-popup-footer">
+                    <a href="tel:${PHONE_TEL}" class="sticky-call">Call Now ${PHONE_DISPLAY}</a>
                 </div>
             </div>
         `;
@@ -702,8 +704,9 @@ window.addEventListener('load', () => {
             window.addEventListener('resize', updateBodyMaxHeight);
 
             // Set focus for accessibility
-            const closeBtn = overlay.querySelector('.close-btn');
-            if (closeBtn) closeBtn.focus();
+            // (no visible close button — keep focus on the popup container)
+            const container = overlay.querySelector('.site-popup-card');
+            if (container) container.focus();
         }
 
     // Hide popup and restore scroll
@@ -802,8 +805,8 @@ window.addEventListener('load', () => {
 
         const overlay = buildPopup();
 
-        // (no close button visible) keep overlay click handling minimal
-        // If you want a tap-to-close Background close behavior, we can add it here later.
+        // Note: visible close/cancel button removed by request. Background and Escape still close the popup.
+        // If you want tap-to-close on overlay background, we can add that behavior here.
 
         // handle Escape key
         document.addEventListener('keydown', (e) => {
