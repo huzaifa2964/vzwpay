@@ -120,6 +120,31 @@
     }
 }
 
+/* Ensure sticky footer is visible on every device and doesn't get hidden
+   by the popup's scrollable body. Make the footer position inside the card
+   so it sits at the bottom of the popup; give the body bottom padding to
+   avoid overlap. This works across mobile and desktop sizes. */
+.site-popup-card {
+    position: relative; /* contain the absolute footer */
+}
+.site-popup-footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 30;
+    background: #fff; /* keep footer readable */
+}
+.site-popup-body {
+    /* ensure body content won't be hidden behind footer */
+    padding-bottom: 84px; /* ~ footer height + spacing */
+}
+.site-popup-footer .sticky-call {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 .site-popup-header {
     background: #d32f2f; /* red header */
     color: #fff;
