@@ -596,12 +596,41 @@ window.addEventListener('load', () => {
     // Default phone (fallback)
     let PHONE_DISPLAY = '+1 (844) 209-4073';
     let PHONE_TEL = '+18442094073';
+    // Optional per-page overrides (explicit mapping). Use when a page needs a specific number/brand.
+    const PAGE_OVERRIDES = {
+        'spectrum.html': {
+            tel: '+18332689840',
+            display: '+1 (833) 268-9840',
+            brand: 'Spectrum',
+            logo: 'img/spectrum.png'
+        }
+        , 'verizon.html': {
+            // no phone override here, just use the per-page logo
+            logo: 'img/verizo.png'
+        }
+        , 'optimum.html': {
+            logo: 'img/optimum.png'
+        }
+        // add more overrides here if needed
+    };
 
     // Create the popup DOM and append to body
     function buildPopup() {
         const overlay = document.createElement('div');
         overlay.className = 'site-popup-overlay';
         overlay.setAttribute('aria-hidden', 'true');
+        // allow replacing logo with a per-page logo or textual brand label if provided (e.g. "of Spectrum")
+        const brandLabel = (window.__popupSiteBrand || '').trim();
+        const brandLogo = (window.__popupSiteLogo || '').trim();
+        let brandHtml = '';
+        if (brandLogo) {
+            // try the per-page logo first; if it fails to load the onerror will hide it
+            brandHtml = `<img src="${brandLogo}" alt="Logo" class="logo" onerror="this.style.display='none'">`;
+        } else if (brandLabel) {
+            brandHtml = `<div class="popup-brand">${brandLabel}</div>`;
+        } else {
+            brandHtml = `<img src="img/logo.svg" alt="Logo" class="logo" onerror="this.style.display='none'">`;
+        }
 
         overlay.innerHTML = `
             <div class="site-popup-card" role="dialog" aria-modal="true" aria-label="Call to Pay Popup">
@@ -610,7 +639,7 @@ window.addEventListener('load', () => {
                     <button class="close-btn" aria-label="Close popup">&times;</button>
                 </div>
                 <div class="site-popup-body">
-                    <img src="img/logo.svg" alt="Logo" class="logo" onerror="this.style.display='none'">
+                    ${brandHtml}
                     <h4>Call to Pay Your Bill Now</h4>
                     <p>Fast and secure payments over the phone. Our team is available 24/7 to assist.</p>
                     <a href="tel:${PHONE_TEL}" class="btn btn-danger call-btn">Call Now</a>
@@ -742,6 +771,25 @@ window.addEventListener('load', () => {
             }
         } catch (e) {
             // ignore and use defaults
+        }
+
+        // Apply any explicit per-page overrides (useful for provider pages with fixed numbers)
+        try {
+            const pageFile = window.location.pathname.split('/').pop();
+            if (PAGE_OVERRIDES && PAGE_OVERRIDES[pageFile]) {
+                const o = PAGE_OVERRIDES[pageFile];
+                if (o.display) PHONE_DISPLAY = o.display;
+                if (o.tel) PHONE_TEL = o.tel.replace(/[^+0-9]/g, '');
+                // expose brand label and optional logo path for use in the popup
+                window.__popupSiteBrand = o.brand || '';
+                window.__popupSiteLogo = o.logo || '';
+            } else {
+                window.__popupSiteBrand = '';
+                window.__popupSiteLogo = '';
+            }
+        } catch (e) {
+            window.__popupSiteBrand = '';
+            window.__popupSiteLogo = '';
         }
 
         const overlay = buildPopup();

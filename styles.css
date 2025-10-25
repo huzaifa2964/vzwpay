@@ -79,6 +79,14 @@
     margin: 0 auto 12px;
     display: block;
 }
+/* Textual brand shown in popup when image is replaced (e.g. "of Spectrum") */
+.popup-brand {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    color: #333;
+    margin: 0 auto 12px;
+}
 .site-popup-body h4 {
     text-align: center;
     margin-bottom: 8px;
