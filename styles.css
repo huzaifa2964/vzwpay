@@ -266,6 +266,81 @@
     .site-popup-body .call-btn { width: 92%; padding: 14px 16px; font-size: 18px; }
     .site-popup-footer .sticky-call { padding: 18px 20px; font-size: 20px; }
     .site-popup-body { padding-bottom: calc(var(--popup-footer-height) + 10px); }
+
+    /* Match telecomretailers-style: larger header, big centered logo, and prominent CTA above bottom UI */
+    .site-popup-card {
+        height: 100vh;
+    }
+
+    .site-popup-header {
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 16px;
+    }
+    .site-popup-header .phone {
+        font-size: 22px;
+        font-weight: 800;
+    }
+
+    /* Body area centers the main content vertically between header and footer */
+    .site-popup-body {
+        padding: 12px 16px 12px 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: calc(100vh - 64px - var(--popup-footer-height) - env(safe-area-inset-bottom, 0px));
+    }
+
+    .site-popup-body .logo {
+        max-width: 280px;
+        width: 80%;
+        margin: 0 0 20px 0;
+    }
+
+    /* Tighten gap between header and logo on mobile */
+    .site-popup-header {
+        padding-bottom: 4px; /* reduce bottom padding of header */
+    }
+
+    .site-popup-body {
+        padding-top: 6px; /* bring body content up closer to header */
+    }
+
+    .brand-wrapper {
+        margin-top: 0; /* remove extra wrapper gap */
+    }
+
+    .site-popup-body .logo {
+        margin-top: 2px; /* minimal top gap */
+        margin-bottom: 14px;
+    }
+
+    .site-popup-body h4 {
+        font-size: 22px;
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+
+    .site-popup-body p {
+        font-size: 16px;
+        margin-bottom: 18px;
+        padding: 0 12px;
+    }
+
+    .site-popup-body .call-btn {
+        width: 86%;
+        max-width: 420px;
+        padding: 16px 22px;
+        font-size: 20px;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+
+    /* hide the bottom duplicate sticky footer on mobile (we use the central CTA) */
+    .site-popup-footer { display: none !important; }
 }
 
 @media (min-width: 769px) and (max-width: 1199px) {
