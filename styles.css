@@ -154,7 +154,9 @@
     padding: 12px 16px;
 }
 .site-popup-header .phone {
-    font-weight: 700;
+    font-weight: 800;
+    font-size: 20px; /* base */
+    text-align: center;
 }
 .site-popup-header .close-btn {
     background: transparent;
@@ -170,14 +172,20 @@
     display: none !important;
 }
 
+/* Popup body and content defaults */
 .site-popup-body {
     padding: 20px;
     overflow: auto; /* only this area scrolls */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 .site-popup-body .logo {
-    max-width: 160px;
+    max-width: 220px;
     margin: 0 auto 12px;
     display: block;
+    width: 60%;
 }
 /* Textual brand shown in popup when image is replaced (e.g. "of Spectrum") */
 .popup-brand {
@@ -212,11 +220,40 @@
     width: 100%;
     background: #d32f2f;
     color: #fff;
-    padding: 12px 16px;
+    padding: 16px 18px; /* larger tappable area */
     text-align: center;
-    font-weight: 700;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 1.2;
     border-radius: 8px;
     text-decoration: none;
+}
+
+/* Responsive sizing and spacing to ensure footer/button visibility */
+@media (max-width: 768px) {
+    :root { --popup-footer-height: 84px; }
+    .site-popup-header .phone { font-size: 20px; }
+    .site-popup-body .logo { max-width: 260px; width: 70%; }
+    .site-popup-body h4 { font-size: 20px; }
+    .site-popup-body p { font-size: 15px; }
+    .site-popup-body .call-btn { width: 92%; padding: 14px 16px; font-size: 18px; }
+    .site-popup-footer .sticky-call { padding: 18px 20px; font-size: 20px; }
+    .site-popup-body { padding-bottom: calc(var(--popup-footer-height) + 10px); }
+}
+
+@media (min-width: 769px) and (max-width: 1199px) {
+    :root { --popup-footer-height: 76px; }
+    .site-popup-header .phone { font-size: 22px; }
+    .site-popup-footer .sticky-call { font-size: 18px; padding: 14px 18px; }
+    .site-popup-body { padding-bottom: calc(var(--popup-footer-height) + 8px); }
+}
+
+@media (min-width: 1200px) {
+    :root { --popup-footer-height: 72px; }
+    .site-popup-header .phone { font-size: 24px; }
+    .site-popup-body .logo { max-width: 260px; }
+    .site-popup-footer .sticky-call { font-size: 18px; padding: 12px 16px; }
+    .site-popup-body { padding-bottom: calc(var(--popup-footer-height) + 6px); }
 }
 
 /* Prevent background scroll when popup is open */
