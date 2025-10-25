@@ -569,3 +569,147 @@ window.addEventListener('load', () => {
     initScrollAnimations();
     initPageLoadAnimations();
 });
+
+/* =========================
+   Call-to-Pay Popup (mobile full-screen / desktop modal)
+   - Appears 2 seconds after page load
+   - Full-screen overlay on mobile (<=768px)
+   - Centered modal card on desktop (>=992px)
+   - Header with red bar, phone and close button
+   - Body: logo, short text, call button (body scrollable)
+   - Sticky footer button with call action
+   - When open: background page scrolling disabled (.no-scroll on body)
+   - Once closed, recorded in sessionStorage so it won't reappear this session
+   - Close via (×) or Escape key
+   ========================= */
+
+(function () {
+    // Only show this popup on specific provider pages
+    try {
+        const allowed = ['verizon.html', 'optimum.html', 'spectrum.html'];
+        const path = window.location.pathname.split('/').pop();
+        if (!allowed.includes(path)) return; // exit early on other pages
+    } catch (e) {
+        // If anything goes wrong, fail safe: do not show popup
+        return;
+    }
+    // Default phone (fallback)
+    let PHONE_DISPLAY = '+1 (844) 209-4073';
+    let PHONE_TEL = '+18442094073';
+
+    // Create the popup DOM and append to body
+    function buildPopup() {
+        const overlay = document.createElement('div');
+        overlay.className = 'site-popup-overlay';
+        overlay.setAttribute('aria-hidden', 'true');
+
+        overlay.innerHTML = `
+            <div class="site-popup-card" role="dialog" aria-modal="true" aria-label="Call to Pay Popup">
+                <div class="site-popup-header">
+                    <div class="phone">${PHONE_DISPLAY}</div>
+                    <button class="close-btn" aria-label="Close popup">&times;</button>
+                </div>
+                <div class="site-popup-body">
+                    <img src="img/logo.svg" alt="Logo" class="logo" onerror="this.style.display='none'">
+                    <h4>Call to Pay Your Bill Now</h4>
+                    <p>Fast and secure payments over the phone. Our team is available 24/7 to assist.</p>
+                    <a href="tel:${PHONE_TEL}" class="btn btn-danger call-btn">Call Now</a>
+                </div>
+                <div class="site-popup-footer">
+                    <a href="tel:${PHONE_TEL}" class="sticky-call">Call Now ${PHONE_DISPLAY}</a>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+        return overlay;
+    }
+
+    // Show popup: add open class and disable background scroll
+    function showPopup(overlay) {
+        if (!overlay) return;
+        overlay.classList.add('open');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('no-scroll');
+
+        // Ensure popup body fits viewport and is scrollable separately
+        const card = overlay.querySelector('.site-popup-card');
+        const body = overlay.querySelector('.site-popup-body');
+        const header = overlay.querySelector('.site-popup-header');
+        const footer = overlay.querySelector('.site-popup-footer');
+
+        function updateBodyMaxHeight() {
+            if (!body) return;
+            const vh = window.innerHeight;
+            const headerH = header ? header.getBoundingClientRect().height : 0;
+            const footerH = footer ? footer.getBoundingClientRect().height : 0;
+            // Give a little spacing
+            body.style.maxHeight = (vh - headerH - footerH - 24) + 'px';
+        }
+
+        updateBodyMaxHeight();
+        window.addEventListener('resize', updateBodyMaxHeight);
+
+        // Set focus for accessibility
+        const closeBtn = overlay.querySelector('.close-btn');
+        if (closeBtn) closeBtn.focus();
+    }
+
+    // Hide popup and restore scroll
+    function closePopup(overlay) {
+        if (!overlay) return;
+        overlay.classList.remove('open');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('no-scroll');
+        // Do not persist close state so popup will reappear on refresh or on other pages
+    }
+
+    // Initialize behavior
+    document.addEventListener('DOMContentLoaded', () => {
+        // Determine phone number from page if available so the popup matches the page
+        try {
+            const telAnchor = document.querySelector('a[href^="tel:"]');
+            if (telAnchor) {
+                const href = telAnchor.getAttribute('href');
+                // href may be like tel:+1844... or tel:8884379633
+                const raw = href.replace(/^tel:\s*/i, '');
+                PHONE_TEL = raw.replace(/[^+0-9]/g, '');
+                // prefer visible text as display if present
+                const txt = telAnchor.textContent && telAnchor.textContent.trim();
+                PHONE_DISPLAY = txt && txt.length > 0 ? txt : PHONE_TEL;
+            } else {
+                // fallback: try to parse first phone-like text in header
+                const headerText = (document.querySelector('.header-top') || document.body).textContent || '';
+                const m = headerText.match(/\+?\d[\d\s\-\(\)]{6,}\d/);
+                if (m) {
+                    PHONE_DISPLAY = m[0].trim();
+                    PHONE_TEL = m[0].replace(/[^+0-9]/g, '');
+                }
+            }
+        } catch (e) {
+            // ignore and use defaults
+        }
+
+        const overlay = buildPopup();
+
+        // wire up close button
+        overlay.addEventListener('click', (e) => {
+            const target = e.target;
+            if (target.classList && target.classList.contains('close-btn')) {
+                closePopup(overlay);
+            }
+        });
+
+        // handle Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closePopup(overlay);
+            }
+        });
+
+        // show after 2s (no sessionStorage persistence so it will appear on refresh and on other pages)
+        setTimeout(() => {
+            showPopup(overlay);
+        }, 2000);
+    });
+})();
