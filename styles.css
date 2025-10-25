@@ -1377,18 +1377,7 @@ body {
     .service-icon span {
         font-size: 0.9rem;
     }
-
-    /* Ensure bundle/service icons are visible: black color, transparent background */
-    .bundle-section i,
-    .service-icon i,
-    .benefit i,
-    .bundle-visual i,
-    .bundle-image i {
-        color: #000 !important;          /* make icon color black */
-        background: transparent !important; /* keep background transparent */
-        box-shadow: none !important;    /* remove any shadow that may hide the icon */
-        opacity: 1 !important;          /* ensure fully visible */
-    }
+    
     
     /* Utility Classes */
     .text-center-mobile {
