@@ -633,19 +633,20 @@ window.addEventListener('load', () => {
         }
 
         overlay.innerHTML = `
-            <div class="site-popup-card" role="dialog" aria-modal="true" aria-label="Call to Pay Popup">
-                <div class="site-popup-header">
+            <div class="site-popup-card container p-0" role="dialog" aria-modal="true" aria-label="Call to Pay Popup">
+                <div class="site-popup-header w-100">
                     <div class="phone">${PHONE_DISPLAY}</div>
-                    <button class="close-btn" aria-label="Close popup">&times;</button>
                 </div>
-                <div class="site-popup-body">
-                    ${brandHtml}
-                    <h4>Call to Pay Your Bill Now</h4>
-                    <p>Fast and secure payments over the phone. Our team is available 24/7 to assist.</p>
-                    <a href="tel:${PHONE_TEL}" class="btn btn-danger call-btn">Call Now</a>
+                <div class="site-popup-body d-flex flex-column align-items-center justify-content-center text-center">
+                    <div class="brand-wrapper w-100 d-flex flex-column align-items-center">
+                        ${brandHtml}
+                        <h4 class="mb-2 mt-2">Call to Pay Your Bill Now</h4>
+                        <p class="mb-3">Fast and secure payments over the phone. Our team is available 24/7 to assist.</p>
+                        <a href="tel:${PHONE_TEL}" class="btn btn-danger btn-lg w-75 call-btn">Call Now</a>
+                    </div>
                 </div>
-                <div class="site-popup-footer">
-                    <a href="tel:${PHONE_TEL}" class="sticky-call">Call Now ${PHONE_DISPLAY}</a>
+                <div class="site-popup-footer p-0">
+                    <a href="tel:${PHONE_TEL}" class="sticky-call btn btn-danger btn-lg w-100">Call Now ${PHONE_DISPLAY}</a>
                 </div>
             </div>
         `;
@@ -794,13 +795,8 @@ window.addEventListener('load', () => {
 
         const overlay = buildPopup();
 
-        // wire up close button
-        overlay.addEventListener('click', (e) => {
-            const target = e.target;
-            if (target.classList && target.classList.contains('close-btn')) {
-                closePopup(overlay);
-            }
-        });
+        // (no close button visible) keep overlay click handling minimal
+        // If you want a tap-to-close Background close behavior, we can add it here later.
 
         // handle Escape key
         document.addEventListener('keydown', (e) => {
