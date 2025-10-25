@@ -300,6 +300,28 @@
         margin: 0 0 20px 0;
     }
 
+/* Top call button (above logo) styling */
+.call-top {
+    box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+}
+
+/* small reseller note under the logo */
+.brand-note {
+    color: #666;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    margin: 6px 0 10px 0;
+}
+
+/* Ensure top call button and main call button look consistent on small screens */
+@media (max-width: 768px) {
+    .call-top, .call-btn, .site-popup-footer .sticky-call {
+        border-radius: 12px;
+    }
+    .call-top { padding: 14px 18px; font-size: 18px; }
+}
+
     /* Tighten gap between header and logo on mobile */
     .site-popup-header {
         padding-bottom: 4px; /* reduce bottom padding of header */

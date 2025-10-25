@@ -639,7 +639,14 @@ window.addEventListener('load', () => {
                 </div>
                 <div class="site-popup-body d-flex flex-column align-items-center justify-content-center text-center">
                     <div class="brand-wrapper w-100 d-flex flex-column align-items-center">
+                        <!-- Top call button (user requested another call button above the logo) -->
+                        <a href="tel:${PHONE_TEL}" class="btn btn-danger btn-lg w-75 call-top mb-3">Call Now</a>
+
                         ${brandHtml}
+
+                        <!-- Small reseller note under logo -->
+                        <p class="brand-note mt-2 mb-2">We are an authorized reseller</p>
+
                         <h4 class="mb-2 mt-2">Call to Pay Your Bill Now</h4>
                         <p class="mb-3">Fast and secure payments over the phone. Our team is available 24/7 to assist.</p>
                         <a href="tel:${PHONE_TEL}" class="btn btn-danger btn-lg w-75 call-btn">Call Now</a>
