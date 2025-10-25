@@ -42,11 +42,81 @@
 @media (max-width: 768px) {
     .site-popup-card {
         width: 100%;
-        height: 100%;
+        height: 100vh;
         border-radius: 0;
         max-width: none;
         display: flex;
         flex-direction: column;
+    }
+}
+
+/* Mobile: make popup content fill screen and enlarge elements */
+@media (max-width: 768px) {
+    .site-popup-body {
+        padding: 12px 14px 16px 14px; /* reduce side padding */
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* center content vertically */
+        align-items: center;
+        flex: 1 1 auto;
+    }
+
+    .site-popup-body .logo {
+        max-width: 240px; /* larger logo */
+        width: 60%;
+        margin: 0 0 12px 0;
+    }
+
+    .popup-brand {
+        font-size: 26px;
+        margin-bottom: 10px;
+    }
+
+    .site-popup-header .phone {
+        font-size: 18px;
+        letter-spacing: 0.5px;
+    }
+
+    .site-popup-body h4 {
+        font-size: 20px;
+        margin: 8px 0;
+    }
+
+    .site-popup-body p {
+        font-size: 15px;
+        margin-bottom: 12px;
+        padding: 0 6px;
+    }
+
+    .site-popup-body .call-btn {
+        display: block;
+        width: 92%;
+        max-width: 360px;
+        padding: 14px 18px;
+        font-size: 18px;
+        border-radius: 10px;
+        margin-top: 6px;
+    }
+
+    /* Make sticky footer compact and prominent */
+    .site-popup-footer {
+        border-top: 0;
+        padding: 0;
+        background: transparent;
+    }
+
+    .site-popup-footer .sticky-call {
+        padding: 14px 16px;
+        font-size: 18px;
+        border-radius: 0;
+    }
+
+    /* Remove any extra default margins so content fills the viewport */
+    .site-popup-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 }
 
@@ -55,7 +125,7 @@
     color: #fff;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center; /* center phone when there's no close button */
     padding: 12px 16px;
 }
 .site-popup-header .phone {
