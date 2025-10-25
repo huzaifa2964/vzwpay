@@ -147,19 +147,29 @@
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 0;
-    z-index: 30;
+    /* sit above the OS/browser bottom UI using the safe-area inset */
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
+    z-index: 9999;
     background: transparent; /* keep footer readable */
     display: flex;
     justify-content: center; /* center the button */
 }
 .site-popup-body {
-    /* ensure body content won't be hidden behind footer */
-    padding-bottom: calc(var(--popup-footer-height,72px) + 24px); /* footer height + spacing */
+    /* ensure body content won't be hidden behind footer; include safe-area inset */
+    padding-bottom: calc(var(--popup-footer-height,72px) + 24px + env(safe-area-inset-bottom, 0px)); /* footer height + spacing + safe area */
 }
 .site-popup-footer .sticky-call {
-    display: inline-block;
+    display: inline-flex;
     box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    /* ensure the button sits above the browser chrome on small devices */
+    margin-bottom: calc(env(safe-area-inset-bottom, 0px));
+}
+
+/* iOS Safari safe-area fixes: ensure the overlay doesn't push footer off-screen */
+.site-popup-overlay {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 .site-popup-header {
