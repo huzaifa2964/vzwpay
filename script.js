@@ -625,42 +625,68 @@ window.addEventListener('load', () => {
         return overlay;
     }
 
-    // Show popup: add open class and disable background scroll
-    function showPopup(overlay) {
-        if (!overlay) return;
-        overlay.classList.add('open');
-        overlay.setAttribute('aria-hidden', 'false');
-        document.body.classList.add('no-scroll');
+    
+        // Show popup: add open class and disable background scroll (robust on mobile)
+        let _savedScrollY = 0;
+        function showPopup(overlay) {
+            if (!overlay) return;
+            overlay.classList.add('open');
+            overlay.setAttribute('aria-hidden', 'false');
 
-        // Ensure popup body fits viewport and is scrollable separately
-        const card = overlay.querySelector('.site-popup-card');
-        const body = overlay.querySelector('.site-popup-body');
-        const header = overlay.querySelector('.site-popup-header');
-        const footer = overlay.querySelector('.site-popup-footer');
+            // Save current scroll position and lock the page by using fixed positioning.
+            try {
+                _savedScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+                // apply lock styles
+                document.documentElement.style.overflow = 'hidden';
+                document.body.style.position = 'fixed';
+                document.body.style.top = `-${_savedScrollY}px`;
+                document.body.classList.add('no-scroll');
+            } catch (e) {
+                // fallback to simple class toggle
+                document.body.classList.add('no-scroll');
+            }
 
-        function updateBodyMaxHeight() {
-            if (!body) return;
-            const vh = window.innerHeight;
-            const headerH = header ? header.getBoundingClientRect().height : 0;
-            const footerH = footer ? footer.getBoundingClientRect().height : 0;
-            // Give a little spacing
-            body.style.maxHeight = (vh - headerH - footerH - 24) + 'px';
+            // Ensure popup body fits viewport and is scrollable separately
+            const card = overlay.querySelector('.site-popup-card');
+            const body = overlay.querySelector('.site-popup-body');
+            const header = overlay.querySelector('.site-popup-header');
+            const footer = overlay.querySelector('.site-popup-footer');
+
+            function updateBodyMaxHeight() {
+                if (!body) return;
+                const vh = window.innerHeight;
+                const headerH = header ? header.getBoundingClientRect().height : 0;
+                const footerH = footer ? footer.getBoundingClientRect().height : 0;
+                // Give a little spacing
+                body.style.maxHeight = (vh - headerH - footerH - 24) + 'px';
+            }
+
+            updateBodyMaxHeight();
+            window.addEventListener('resize', updateBodyMaxHeight);
+
+            // Set focus for accessibility
+            const closeBtn = overlay.querySelector('.close-btn');
+            if (closeBtn) closeBtn.focus();
         }
-
-        updateBodyMaxHeight();
-        window.addEventListener('resize', updateBodyMaxHeight);
-
-        // Set focus for accessibility
-        const closeBtn = overlay.querySelector('.close-btn');
-        if (closeBtn) closeBtn.focus();
-    }
 
     // Hide popup and restore scroll
     function closePopup(overlay) {
         if (!overlay) return;
         overlay.classList.remove('open');
         overlay.setAttribute('aria-hidden', 'true');
-        document.body.classList.remove('no-scroll');
+        try {
+            // restore scroll positioning
+            document.body.classList.remove('no-scroll');
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.documentElement.style.overflow = '';
+            // restore previous scroll position
+            if (typeof _savedScrollY === 'number' && _savedScrollY) {
+                window.scrollTo(0, _savedScrollY);
+            }
+        } catch (e) {
+            document.body.classList.remove('no-scroll');
+        }
         // Do not persist close state so popup will reappear on refresh or on other pages
     }
 
@@ -668,17 +694,45 @@ window.addEventListener('load', () => {
     document.addEventListener('DOMContentLoaded', () => {
         // Determine phone number from page if available so the popup matches the page
         try {
-            const telAnchor = document.querySelector('a[href^="tel:"]');
-            if (telAnchor) {
-                const href = telAnchor.getAttribute('href');
-                // href may be like tel:+1844... or tel:8884379633
+            const telAnchors = Array.from(document.querySelectorAll('a[href^="tel:"]'));
+            let chosen = null;
+
+            // Prefer an anchor whose visible text contains digits (likely the phone number)
+            for (const a of telAnchors) {
+                const txt = (a.textContent || '').trim();
+                if (/[0-9]/.test(txt)) {
+                    chosen = a;
+                    break;
+                }
+            }
+
+            // Fallback to the first tel anchor if none had visible digits
+            if (!chosen && telAnchors.length) chosen = telAnchors[0];
+
+            if (chosen) {
+                const href = chosen.getAttribute('href') || '';
                 const raw = href.replace(/^tel:\s*/i, '');
                 PHONE_TEL = raw.replace(/[^+0-9]/g, '');
-                // prefer visible text as display if present
-                const txt = telAnchor.textContent && telAnchor.textContent.trim();
-                PHONE_DISPLAY = txt && txt.length > 0 ? txt : PHONE_TEL;
+
+                // Determine a friendly display string. Prefer visible text if it contains digits,
+                // otherwise format the raw number.
+                const visible = (chosen.textContent || '').trim();
+                if (visible && /[0-9]/.test(visible)) {
+                    PHONE_DISPLAY = visible;
+                } else {
+                    // Format common US numbers for nicer display
+                    const digits = PHONE_TEL.replace(/[^0-9]/g, '');
+                    if (digits.length === 11 && digits.startsWith('1')) {
+                        const d = digits.slice(1);
+                        PHONE_DISPLAY = `+1 (${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
+                    } else if (digits.length === 10) {
+                        PHONE_DISPLAY = `(${digits.slice(0,3)}) ${digits.slice(3,6)}-${digits.slice(6)}`;
+                    } else {
+                        PHONE_DISPLAY = PHONE_TEL || PHONE_DISPLAY;
+                    }
+                }
             } else {
-                // fallback: try to parse first phone-like text in header
+                // fallback: try to parse first phone-like text in header or body
                 const headerText = (document.querySelector('.header-top') || document.body).textContent || '';
                 const m = headerText.match(/\+?\d[\d\s\-\(\)]{6,}\d/);
                 if (m) {
