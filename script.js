@@ -3,10 +3,12 @@ const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 
 if (hamburger && navMenu) {
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        // Clear dropdown state when mobile menu is toggled
+        localStorage.removeItem('lastOpenDropdown');
+    });
 }
 
 // Close mobile menu when clicking on a link
@@ -15,6 +17,67 @@ document.querySelectorAll('.nav-menu a').forEach(link => {
         if (hamburger) hamburger.classList.remove('active');
         if (navMenu) navMenu.classList.remove('active');
     });
+});
+
+// Dropdown State Management
+document.addEventListener('DOMContentLoaded', () => {
+    // Get all dropdown toggles
+    const dropdownToggles = document.querySelectorAll('.nav-link.dropdown-toggle');
+    
+    // Initialize Bootstrap dropdowns
+    dropdownToggles.forEach(toggle => {
+        // Listen for Bootstrap's show.bs.dropdown event (when dropdown starts to open)
+        toggle.addEventListener('show.bs.dropdown', (e) => {
+            // Save the ID of the dropdown being opened
+            const dropdownId = toggle.id;
+            if (dropdownId) {
+                localStorage.setItem('lastOpenDropdown', dropdownId);
+            }
+        });
+
+        // Listen for Bootstrap's hide.bs.dropdown event (when dropdown starts to close)
+        toggle.addEventListener('hide.bs.dropdown', (e) => {
+            const dropdownId = toggle.id;
+            // Only remove if this dropdown was the one stored
+            if (dropdownId && localStorage.getItem('lastOpenDropdown') === dropdownId) {
+                localStorage.removeItem('lastOpenDropdown');
+            }
+        });
+    });
+
+    // Check for last open dropdown and reopen it
+    const lastOpenDropdownId = localStorage.getItem('lastOpenDropdown');
+    if (lastOpenDropdownId) {
+        const dropdownToOpen = document.getElementById(lastOpenDropdownId);
+        if (dropdownToOpen && dropdownToOpen.classList.contains('dropdown-toggle')) {
+            // Use Bootstrap's Dropdown API to show the dropdown
+            const dropdown = new bootstrap.Dropdown(dropdownToOpen);
+            dropdown.show();
+        }
+    }
+
+    // Clear dropdown state when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.dropdown')) {
+            localStorage.removeItem('lastOpenDropdown');
+        }
+    });
+});
+
+// Handle back/forward navigation
+window.addEventListener('pageshow', (event) => {
+    // Check if the page is being loaded from cache
+    if (event.persisted) {
+        const lastOpenDropdownId = localStorage.getItem('lastOpenDropdown');
+        if (lastOpenDropdownId) {
+            const dropdownToOpen = document.getElementById(lastOpenDropdownId);
+            if (dropdownToOpen && dropdownToOpen.classList.contains('dropdown-toggle')) {
+                // Use Bootstrap's Dropdown API to show the dropdown
+                const dropdown = new bootstrap.Dropdown(dropdownToOpen);
+                dropdown.show();
+            }
+        }
+    }
 });
 
 // Tab functionality for company section
