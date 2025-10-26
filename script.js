@@ -609,13 +609,15 @@ window.addEventListener('load', () => {
     // Optional per-page overrides (explicit mapping). Use when a page needs a specific number/brand.
     const PAGE_OVERRIDES = {
         'spectrum.html': {
-            tel: '+18332689840',
+            tel: '8332689840',
             display: '+1 (833) 268-9840',
             brand: 'Spectrum',
             logo: 'img/spectrum.png'
         }
         , 'verizon.html': {
             // no phone override here, just use the per-page logo
+            tel: '8884379633',
+            display: '+1 (888) 437-9633',
             logo: 'img/verizo.png'
         }
         , 'optimum.html': {
