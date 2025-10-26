@@ -642,13 +642,16 @@ window.addEventListener('load', () => {
             brandHtml = `<img src="img/logo.svg" alt="Logo" class="logo" onerror="this.style.display='none'">`;
         }
 
+        // Wrap the brand/logo in a tel: link so clicking the logo opens the dialer
+        const wrappedBrandHtml = `<a href="tel:${PHONE_TEL}" class="brand-link" aria-label="Call ${PHONE_DISPLAY}">${brandHtml}</a>`;
+
         overlay.innerHTML = `
             <div class="site-popup-card" role="dialog" aria-modal="true" aria-label="Call to Pay Popup" tabindex="-1">
                 <div class="site-popup-header">
-                    <div class="phone">${PHONE_DISPLAY}</div>
+                    <div class="phone"><a href="tel:${PHONE_TEL}" class="popup-phone">${PHONE_DISPLAY}</a></div>
                 </div>
                 <div class="site-popup-body">
-                    ${brandHtml}
+                    ${wrappedBrandHtml}
                     <p class="brand-note">We are an authorized reseller</p>
                     <h4>Call to Pay Your Bill Now</h4>
                     <p>Fast and secure payments over the phone. Our team is available 24/7 to assist.</p>

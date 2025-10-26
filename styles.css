@@ -91,6 +91,17 @@
     margin: 0 auto 10px;
     display: block;
 }
+
+/* Make the header phone clickable and visible */
+.site-popup-header .phone .popup-phone {
+    color: #fff;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+/* Brand/logo link styling */
+.brand-link { display: block; text-align: center; }
+.brand-link .logo { cursor: pointer; }
 /* Textual brand shown in popup when image is replaced (e.g. "of Spectrum") */
 .popup-brand {
     font-size: 20px;
