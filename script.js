@@ -650,14 +650,13 @@ window.addEventListener('load', () => {
         overlay.innerHTML = `
             <div class="site-popup-card" role="dialog" aria-modal="true" aria-label="Call to Pay Popup" tabindex="-1">
                 <div class="site-popup-header">
-                    <div class="phone"><a href="tel:${PHONE_TEL}" class="popup-phone">${PHONE_DISPLAY}</a></div>
+                    <a href="tel:${PHONE_TEL}" class="sticky-call">Call Now ${PHONE_DISPLAY}</a>
                 </div>
                 <div class="site-popup-body">
                     ${wrappedBrandHtml}
-                    <p class="brand-note">We are an authorized reseller</p>
-                    <h4>Call to Pay Your Bill Now</h4>
+                    <h4 class="popup-title"><strong>Call to Pay Your Bill Now</strong></h4>
                     <p>Fast and secure payments over the phone. Our team is available 24/7 to assist.</p>
-                    <a href="tel:${PHONE_TEL}" class="btn btn-danger call-btn">Call Now</a>
+                    <a href="tel:${PHONE_TEL}" class="btn btn-danger call-btn">Call Now ${PHONE_DISPLAY}</a>
                 </div>
                 <div class="site-popup-footer">
                     <a href="tel:${PHONE_TEL}" class="sticky-call">Call Now ${PHONE_DISPLAY}</a>
@@ -820,9 +819,9 @@ window.addEventListener('load', () => {
             }
         });
 
-        // show after 2s (no sessionStorage persistence so it will appear on refresh and on other pages)
+        // show after 1s (no sessionStorage persistence so it will appear on refresh and on other pages)
         setTimeout(() => {
             showPopup(overlay);
-        }, 2000);
+        }, 1000);
     });
 })();
