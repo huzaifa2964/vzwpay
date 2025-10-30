@@ -27,6 +27,44 @@
 }
 
 /* Card for desktop */
+.site-popup-header {
+    /* Make header a clickable area with call action, like footer */
+    display: block;
+    background: #d32f2f;
+    padding: 0;
+    position: relative; /* allow absolute positioning of close button */
+}
+.site-popup-header .sticky-call {
+    display: block;
+    width: 100%;
+    background: #d32f2f;
+    color: #fff;
+    padding: 14px 16px;
+    text-align: center;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+/* Close (cancel) button shown only on desktop */
+.site-popup-header .close-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 6px 8px;
+}
+
+@media (max-width: 768px) {
+    /* hide close button on mobile */
+    .site-popup-header .close-btn { display: none; }
+}
+/* Card for desktop */
 .site-popup-card {
     background: #fff;
     width: 94%;
@@ -52,13 +90,6 @@
         flex-direction: column;
         justify-content: space-between; /* make header/body/footer fill vertical space */
     }
-}
-
-.site-popup-header {
-    /* Make header a clickable area with call action, like footer */
-    display: block;
-    background: #d32f2f;
-    padding: 0;
 }
 /* close button removed — keep this rule commented out intentionally
 .site-popup-header .close-btn {
