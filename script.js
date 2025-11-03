@@ -615,9 +615,9 @@ window.addEventListener('load', () => {
             logo: 'img/spectrum.png'
         }
         , 'verizon.html': {
-            // no phone override here, just use the per-page logo
-            tel: '8884379633',
-            display: '+1 (888) 437-9633',
+            // per-page override updated to new number
+            tel: '8332689840',
+            display: '+1 (833)-268-9840',
             logo: 'img/verizo.png'
         }
         , 'optimum.html': {
