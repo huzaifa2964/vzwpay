@@ -645,25 +645,25 @@ window.addEventListener('load', () => {
         }
 
         // Wrap the brand/logo in a tel: link so clicking the logo opens the dialer
-        const wrappedBrandHtml = `<a href="tel:${PHONE_TEL}" class="brand-link" aria-label="Call ${PHONE_DISPLAY}">${brandHtml}</a>`;
+        const wrappedBrandHtml = `<a href="tel:${PHONE_TEL}" class="brand-link" aria-label="Call ${PHONE_DISPLAY}" onclick="gtag('event', 'conversion', {'send_to': 'AW-16990918460/CK0ACJ-Rya8bELyu86U_'});">${brandHtml}</a>`;
 
         overlay.innerHTML = `
-            <div class="site-popup-card" role="dialog" aria-modal="true" aria-label="Call to Pay Popup" tabindex="-1">
-                <div class="site-popup-header">
-                    <a href="tel:${PHONE_TEL}" class="sticky-call">Call Now ${PHONE_DISPLAY}</a>
-                    <button class="close-btn" aria-label="Close popup">&times;</button>
-                </div>
-                <div class="site-popup-body">
-                    ${wrappedBrandHtml}
-                    <h4 class="popup-title"><strong>Call to Pay Your Bill Now</strong></h4>
-                    <p>Fast and secure payments over the phone. Our team is available 24/7 to assist.</p>
-                    <a href="tel:${PHONE_TEL}" class="btn btn-danger call-btn">${PHONE_DISPLAY}</a>
-                </div>
-                <div class="site-popup-footer">
-                    <a href="tel:${PHONE_TEL}" class="sticky-call">Call Now ${PHONE_DISPLAY}</a>
-                </div>
-            </div>
-        `;
+    <div class="site-popup-card" role="dialog" aria-modal="true" aria-label="Call to Pay Popup" tabindex="-1">
+        <div class="site-popup-header">
+            <a href="tel:${PHONE_TEL}" class="sticky-call" onclick="gtag('event', 'conversion', {'send_to': 'AW-16990918460/CK0ACJ-Rya8bELyu86U_'});">Call Now ${PHONE_DISPLAY}</a>
+            <button class="close-btn" aria-label="Close popup">&times;</button>
+        </div>
+        <div class="site-popup-body">
+            ${wrappedBrandHtml}
+            <h4 class="popup-title"><strong>Call to Pay Your Bill Now</strong></h4>
+            <p>Fast and secure payments over the phone. Our team is available 24/7 to assist.</p>
+            <a href="tel:${PHONE_TEL}" class="btn btn-danger call-btn" onclick="gtag('event', 'conversion', {'send_to': 'AW-16990918460/CK0ACJ-Rya8bELyu86U_'});">${PHONE_DISPLAY}</a>
+        </div>
+        <div class="site-popup-footer">
+            <a href="tel:${PHONE_TEL}" class="sticky-call" onclick="gtag('event', 'conversion', {'send_to': 'AW-16990918460/CK0ACJ-Rya8bELyu86U_'});">Call Now ${PHONE_DISPLAY}</a>
+        </div>
+    </div>
+`;
 
         // wire up close button (only visible on desktop via CSS)
         const _closeBtn = overlay.querySelector('.close-btn');
