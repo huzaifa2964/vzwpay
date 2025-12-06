@@ -831,9 +831,9 @@ window.addEventListener('load', () => {
             }
         });
 
-        // show after 1s (no sessionStorage persistence so it will appear on refresh and on other pages)
-        setTimeout(() => {
-            showPopup(overlay);
-        }, 1000);
+        // Popup disabled for now
+        // setTimeout(() => {
+        //     showPopup(overlay);
+        // }, 1000);
     });
 })();

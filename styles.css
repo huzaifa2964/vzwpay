@@ -289,6 +289,7 @@ html {
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
+    height: 100%;
 }
 
 body {
@@ -300,6 +301,15 @@ body {
     will-change: transform, opacity;
     /* Better touch scrolling on mobile */
     -webkit-overflow-scrolling: touch;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ensure content between header and footer grows to fill space */
+body > section:not(.footer),
+body > main {
+    flex: 1 0 auto;
 }
 
 /* Ensure content is visible by default */
@@ -1215,6 +1225,7 @@ body {
     background: #2c3e50;
     color: white;
     padding: 60px 0 20px;
+    margin-top: auto;
 }
 
 .footer-content {
@@ -1246,6 +1257,27 @@ body {
 
 .footer-section a:hover {
     color: #3498db;
+}
+
+.footer-disclaimer {
+    border-top: 1px solid #34495e;
+    padding: 30px 0 20px;
+    margin-top: 30px;
+}
+
+.footer-disclaimer-content {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: #bdc3c7;
+    text-align: justify;
+}
+
+.footer-disclaimer-content p {
+    margin-bottom: 12px;
+}
+
+.footer-disclaimer-content p:last-child {
+    margin-bottom: 0;
 }
 
 .footer-bottom {
@@ -1489,6 +1521,17 @@ body {
     .footer-section p {
         font-size: 0.9rem;
         margin-bottom: 10px;
+    }
+    
+    .footer-disclaimer {
+        padding: 20px 0 15px;
+        margin-top: 20px;
+    }
+    
+    .footer-disclaimer-content {
+        font-size: 0.8rem;
+        line-height: 1.6;
+        text-align: left;
     }
     
     .footer-bottom {
@@ -1815,6 +1858,16 @@ body {
     
     .footer-section li {
         margin-bottom: 8px;
+    }
+    
+    .footer-disclaimer {
+        padding: 15px 0 10px;
+        margin-top: 15px;
+    }
+    
+    .footer-disclaimer-content {
+        font-size: 0.75rem;
+        line-height: 1.5;
     }
     
     .footer-bottom {
@@ -3831,11 +3884,12 @@ body {
 
 /* Provider Pages Styling */
 .provider-hero {
-    padding: 120px 0 80px;
+    padding: 180px 0 80px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     position: relative;
     overflow: hidden;
+    margin-top: 0;
 }
 
 .provider-hero::before {
@@ -4804,17 +4858,41 @@ body {
 /* Mobile Responsive for Provider Pages */
 @media (max-width: 768px) {
     .provider-hero {
-        padding: 100px 0 60px;
+        padding: 160px 0 60px;
+    }
+    
+    .provider-logo {
+        margin-bottom: 20px;
+    }
+    
+    .provider-logo {
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 10;
     }
     
     .provider-logo h2 {
         font-size: 2.2rem;
         margin-bottom: 8px;
+        margin-top: 0;
+        padding-top: 0;
+        color: white !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: relative;
+        z-index: 10;
+        font-weight: bold !important;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5) !important;
+        line-height: 1.2;
+        width: 100%;
     }
     
     .provider-tag {
         padding: 6px 15px;
         font-size: 0.8rem;
+        display: inline-block;
+        margin-bottom: 15px;
     }
     
     .provider-info h3 {
@@ -4946,6 +5024,23 @@ body {
         line-height: 1.5;
     }
     
+    .provider-hero {
+        padding: 150px 0 60px;
+    }
+    
+    /* Ensure provider logo h2 is visible on small mobile */
+    .provider-logo h2 {
+        color: white !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        font-size: 1.6rem !important;
+        font-weight: bold !important;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5) !important;
+        position: relative;
+        z-index: 10;
+    }
+    
     .privacy-card,
     .terms-card,
     .refund-card {
@@ -5028,9 +5123,19 @@ body {
         font-size: 0.85rem;
     }
     
+    .provider-logo {
+        margin-bottom: 15px;
+    }
+    
     .provider-logo h2 {
         font-size: 1.8rem;
         margin-bottom: 6px;
+        color: white !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: relative;
+        z-index: 10;
     }
     
     .provider-tag {
