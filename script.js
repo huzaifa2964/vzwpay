@@ -140,6 +140,10 @@ function animateStats() {
     const statNumbers = document.querySelectorAll('.stat-item h3');
     statNumbers.forEach(stat => {
         const target = parseInt(stat.textContent);
+        // Skip animation if target is not a valid number
+        if (isNaN(target) || target === 0) {
+            return;
+        }
         let current = 0;
         const increment = target / 50;
         const timer = setInterval(() => {
