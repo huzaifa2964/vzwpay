@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How It Works - Alpha Solutions Hub</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .how-it-works-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 140px 0 60px;
+            color: white;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .how-it-works-hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .how-it-works-hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .steps-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .step-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .step-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -25px;
+            left: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .step-card h3 {
+            color: #333;
+            font-weight: 700;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .step-card p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .step-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .step-card ul li {
+            color: #555;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .step-card ul li:before {
+            content: "•";
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+        }
+
+        .expect-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .expect-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 60px;
+            color: #333;
+        }
+
+        .expect-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .expect-card:hover {
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .expect-card h4 {
+            color: #667eea;
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .expect-card p {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .cta-btn-primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .cta-btn-primary:hover {
+            background: #f8f9fa;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .cta-btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-btn-secondary:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .how-it-works-hero h1 {
+                font-size: 2rem;
+            }
+
+            .how-it-works-hero p {
+                font-size: 1rem;
+            }
+
+            .step-card {
+                padding: 30px 20px;
+            }
+
+            .step-number {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                top: -20px;
+                left: 20px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> Call Us   24/7   <a href="tel:833-268-9840"> +1 (833)-268-9840</a></span>
+                    <span><i class="fas fa-envelope"></i> Mail For Support <a href="mailto:info@vzwpay.com">info@vzwpay.com</a></span>
+                </div>
+            </div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-white">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="index.html">
+                        <h2 class="mb-0">Alpha Solutions Hub</h2>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="internet.html">Internet</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="homephone.html">HomePhone</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="providersDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Providers
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="providersDropdown">
+                                    <li><a class="dropdown-item" href="verizon.html">Verizon</a></li>
+                                    <li><a class="dropdown-item" href="spectrum.html">Spectrum</a></li>
+                                    <li><a class="dropdown-item" href="optimum.html">Optimum</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="about.html">About Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="how-it-works.html">How It Works</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="policiesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Policies
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="policiesDropdown">
+                                    <li><a class="dropdown-item" href="disclaimer.html">Disclaimer</a></li>
+                                    <li><a class="dropdown-item" href="privacy-policy.html">Privacy Policy</a></li>
+                                    <li><a class="dropdown-item" href="refund-policy.html">Refund Policy</a></li>
+                                    <li><a class="dropdown-item" href="terms-conditions.html">Terms And Condition</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="contact.html">Contact Us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="how-it-works-hero">
+        <div class="container">
+            <h1>How It Works</h1>
+            <p>Getting started with Alpha Solutions Hub is simple. Follow these four easy steps to explore and order internet and TV services in your area.</p>
+        </div>
+    </section>
+
+    <!-- Steps Section -->
+    <section class="steps-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Step 1 -->
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3>Enter Your Address</h3>
+                        <p>Provide your service location so we can check which providers may offer service in your area. This helps us identify available options based on your specific location.</p>
+                        <ul>
+                            <li>Enter your complete street address</li>
+                            <li>Include apartment or unit number if applicable</li>
+                            <li>Confirm your service location details</li>
+                        </ul>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3>View Available Providers</h3>
+                        <p>We'll show you the service providers that may be available at your address, along with their plan options and typical pricing ranges.</p>
+                        <ul>
+                            <li>See which providers serve your area</li>
+                            <li>Review available plan options</li>
+                            <li>Compare pricing ranges and features</li>
+                        </ul>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3>Choose Your Plan</h3>
+                        <p>Select the service package that best fits your needs. You can choose from internet-only, TV-only, or bundled packages depending on availability.</p>
+                        <ul>
+                            <li>Compare different service tiers</li>
+                            <li>Review plan features and pricing</li>
+                            <li>Select your preferred package</li>
+                        </ul>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h3>Schedule Installation</h3>
+                        <p>Once you've selected a plan, we'll help coordinate with the provider to schedule installation at a time that works for you.</p>
+                        <ul>
+                            <li>Choose a convenient installation date</li>
+                            <li>Receive confirmation details</li>
+                            <li>Prepare for service activation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What to Expect Section -->
+    <section class="expect-section">
+        <div class="container">
+            <h2>What to Expect</h2>
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <div class="expect-card">
+                        <h4><i class="fas fa-map-marker-alt me-2"></i>Service Availability</h4>
+                        <p>Not all providers serve all areas. We'll show you which services may be available at your specific location.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="expect-card">
+                        <h4><i class="fas fa-dollar-sign me-2"></i>Pricing Confirmation</h4>
+                        <p>Final pricing is confirmed by the service provider during the ordering process and may vary based on promotions.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="expect-card">
+                        <h4><i class="fas fa-tools me-2"></i>Installation Process</h4>
+                        <p>Most providers offer professional installation. Installation timing and any associated fees are determined by the provider.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="expect-card">
+                        <h4><i class="fas fa-handshake me-2"></i>Our Role</h4>
+                        <p>Alpha Solutions Hub helps you explore options and coordinates with providers. We are an independent marketing partner.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Begin?</h2>
+            <p>Start exploring internet and TV services available in your area today.</p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="cta-btn cta-btn-primary">Check Availability</a>
+                <a href="index.html" class="cta-btn cta-btn-secondary">View Services</a>
+                <a href="tel:8332689840" class="cta-btn cta-btn-primary">Call Us Now: +1 (833)-268-9840</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                    <div class="footer-section">
+                        <h3>Alpha Solutions Hub Inc.</h3>
+                        <p>3951 Innovator<br> Dr Sacramento, CA 95834</p>
+                        <p><a href="tel:8332689840" style="color: white; text-decoration: none;">+1 (833)-268-9840</a></p>
+                        <p><a href="mailto:info@vzwpay.com" style="color: white; text-decoration: none;">info@vzwpay.com</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="how-it-works.html">How It Works</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="disclaimer.html">Disclaimer</a></li>
+                            <li><a href="privacy-policy.html">Privacy policy</a></li>
+                            <li><a href="terms-conditions.html">Terms And Condition</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                    <div class="footer-section">
+                        <h4>Our Newsletter</h4>
+                        <p>Sign up to Private's weekly newsletter to get the latest updates.</p>
+                        <a href="tel:8332689840" class="btn btn-primary">Call Us +1 (833)-268-9840</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="footer-disclaimer">
+                        <div class="footer-disclaimer-content">
+                            <p><strong>Important Disclosure:</strong> Alpha Solutions Hub is owned and operated by Choice Communication LLC, an independent marketing partner. We are not the official website of any internet or cable provider. All product names, logos, and trademarks belong to their respective owners. We assist customers in exploring and ordering services from participating providers across the United States.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center">
+                        <p class="mb-2 mb-md-0">&copy; 2025 Alpha Solutions Hub Inc | All Rights Reserved.</p>
+                        <div class="footer-links d-flex gap-3">
+                            <a href="terms-conditions.html">Terms & Conditions</a>
+                            <a href="privacy-policy.html">Privacy Policy</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

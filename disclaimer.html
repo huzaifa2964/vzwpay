@@ -8,6 +8,102 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .disclaimer-content-section {
+            background: #f8f9fa;
+            padding: 60px 0;
+        }
+        
+        .disclaimer-card {
+            background: white;
+            border-radius: 8px;
+            padding: 50px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .disclaimer-card h2 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+        }
+        
+        .disclaimer-card h3 {
+            color: #34495e;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            padding-left: 15px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .disclaimer-text p {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .disclaimer-text ul {
+            margin: 15px 0 25px 20px;
+            padding-left: 20px;
+        }
+        
+        .disclaimer-text ul li {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .disclaimer-text ul li:before {
+            content: "→";
+            color: #667eea;
+            font-weight: bold;
+            position: absolute;
+            left: -20px;
+        }
+        
+        .disclaimer-text strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .alert-warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .alert-warning strong {
+            color: #856404;
+        }
+        
+        @media (max-width: 768px) {
+            .disclaimer-card {
+                padding: 30px 20px;
+            }
+            
+            .disclaimer-card h2 {
+                font-size: 2rem;
+            }
+            
+            .disclaimer-card h3 {
+                font-size: 1.3rem;
+            }
+            
+            .disclaimer-text p {
+                text-align: left;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -38,17 +134,21 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="homephone.html">HomePhone</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="verizon.html">Verizon</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="spectrum.html">Spectrum</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="optimum.html">Optimum</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="providersDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Providers
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="providersDropdown">
+                                    <li><a class="dropdown-item" href="verizon.html">Verizon</a></li>
+                                    <li><a class="dropdown-item" href="spectrum.html">Spectrum</a></li>
+                                    <li><a class="dropdown-item" href="optimum.html">Optimum</a></li>
+                                </ul>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="about.html">About Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="how-it-works.html">How It Works</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle active" href="#" id="policiesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -83,53 +183,114 @@
     <section class="disclaimer-content-section">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 mx-auto">
+                <div class="col-lg-10 mx-auto">
                     <div class="disclaimer-card">
                         <h2>Website Disclaimer</h2>
-                        <p><strong>Phone:</strong> +1 (833)-268-9840</p>
-                        <p><strong>Email:</strong> info@vzwpay.com</p>
-                        <p><strong>Address:</strong> 3951 Innovator Dr Sacramento, CA 95834</p>
+                        <p><strong>Last Updated:</strong> November 28, 2025</p>
                         
                         <hr class="my-4">
                         
                         <div class="disclaimer-text">
-                            <p>This is NOT an official website of any Telecommunication Service Provider but Official Site of Alpha Solutions Hub Inc. (Marketing Partner). All of the logos used in vzwpay.com are the property of their respective owners and are protected by copyright and trademark laws.</p>
+                            <h3>Important Notice</h3>
+                            <p>Please read this disclaimer carefully before using Alpha Solutions Hub. By accessing and using this website, you acknowledge that you have read, understood, and agree to be bound by this disclaimer.</p>
                             
-                            <p>All trademarks, logos, and related symbols remain the property of their respective owners and are used by vzwpay.com solely to describe the products and services offered by each respective trademark holder. The use of any third-party trademarks on this site does not indicate any relationship between vzwpay.com and the holders of those trademarks, nor does it imply any endorsement of vzwpay.com by the holders of those trademarks.</p>
+                            <h3>1. Independent Marketing Partner</h3>
+                            <p>Alpha Solutions Hub is owned and operated by Choice Communication LLC, an independent marketing partner.</p>
+                            <p><strong>WE ARE NOT:</strong></p>
+                            <ul>
+                                <li>The official website of any internet or cable provider</li>
+                                <li>Affiliated with, endorsed by, or officially connected to any specific service provider</li>
+                                <li>Responsible for the services or technical support provided by service providers</li>
+                                <li>A direct service provider of internet or TV services</li>
+                            </ul>
                             
-                            <p>We may send updates to the mobile number/email id registered with us. The content is for information purposes only and does not constitute an offer to avail of any service. Prices mentioned are subject to change without notice and properties mentioned are subject to availability.</p>
-                        </div>
-                        
-                        <div class="contact-section mt-4">
-                            <h3>Contact Information</h3>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="contact-item">
-                                        <i class="fas fa-phone"></i>
-                                        <div>
-                                            <strong>Phone</strong>
-                                            <p>+1 (833)-268-9840</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="contact-item">
-                                        <i class="fas fa-envelope"></i>
-                                        <div>
-                                            <strong>Email</strong>
-                                            <p>info@vzwpay.com</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 mt-3">
-                                    <div class="contact-item">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        <div>
-                                            <strong>Address</strong>
-                                            <p>3951 Innovator Dr<br>Sacramento, CA 95834</p>
-                                        </div>
-                                    </div>
-                                </div>
+                            <h3>2. Trademark and Intellectual Property</h3>
+                            <p>All product names, logos, service marks, trademarks, and registered trademarks mentioned on this website are the property of their respective owners. The use of any trademark, service mark, or logo is for identification and reference purposes only and does not imply any association with, sponsorship by, or endorsement from the trademark holder.</p>
+                            
+                            <h3>3. Information Accuracy</h3>
+                            <p>While we strive to provide accurate and up-to-date information:</p>
+                            <ul>
+                                <li>Pricing, plans, and service availability are subject to change without notice</li>
+                                <li>Information displayed represents typical market ranges and may vary by location</li>
+                                <li>Final pricing and service details must be confirmed with service providers</li>
+                                <li>We cannot guarantee the accuracy, completeness, or timeliness of all information</li>
+                                <li>Promotional offers and availability vary by provider and location</li>
+                            </ul>
+                            
+                            <h3>4. Service Availability and Limitations</h3>
+                            <p>Information about service availability is subject to several limitations:</p>
+                            <ul>
+                                <li>Service availability varies significantly by specific address and location</li>
+                                <li>Not all services, plans, or providers are available in all areas</li>
+                                <li>Stated speeds and service levels may vary based on location, network conditions, and equipment</li>
+                                <li>Provider coverage maps are estimates and actual service availability may differ</li>
+                                <li>Installation and service activation are subject to provider approval and feasibility</li>
+                            </ul>
+                            
+                            <h3>5. No Guarantees or Warranties</h3>
+                            <p>Choice Communication LLC makes no warranties or guarantees regarding:</p>
+                            <ul>
+                                <li>Service provider performance, reliability, or quality</li>
+                                <li>Specific pricing or promotional availability</li>
+                                <li>Installation timelines or service activation</li>
+                                <li>Speed, bandwidth, or service level achievements</li>
+                                <li>Compatibility with your specific devices or needs</li>
+                                <li>Continued availability of any particular plan or promotion</li>
+                            </ul>
+                            
+                            <h3>6. Third-Party Service Providers</h3>
+                            <p>When you order services through Alpha Solutions Hub:</p>
+                            <ul>
+                                <li>You enter into a separate agreement with the service provider</li>
+                                <li>The provider's terms, conditions, and policies govern your service</li>
+                                <li>Choice Communication LLC is not a party to that agreement</li>
+                                <li>We are not responsible for provider actions, billing, or service delivery</li>
+                                <li>Service quality, customer support, and technical issues must be addressed with the provider</li>
+                            </ul>
+                            
+                            <h3>7. Pricing Disclaimer</h3>
+                            <p>Regarding pricing information displayed on this website:</p>
+                            <ul>
+                                <li>Prices shown are typical ranges and may not reflect your specific area</li>
+                                <li>Final pricing is determined by the service provider based on your location</li>
+                                <li>Additional fees may apply including installation, equipment, taxes, and surcharges</li>
+                                <li>Promotional pricing may require specific terms or commitments</li>
+                                <li>Choice Communication LLC charges separate fees for our services</li>
+                                <li>Prices are subject to change without notice</li>
+                            </ul>
+                            
+                            <h3>8. No Professional Advice</h3>
+                            <p>The information provided on Alpha Solutions Hub is for general informational purposes only and should not be considered professional or technical advice. We recommend consulting with service providers directly for specific technical requirements, compatibility questions, or detailed service information relevant to your situation.</p>
+                            
+                            <h3>9. External Links</h3>
+                            <p>This website may contain links to external websites operated by service providers or other third parties. We are not responsible for the content, accuracy, privacy practices, or availability of external sites. Links are provided for convenience only and do not imply endorsement.</p>
+                            
+                            <h3>10. Limitation of Liability</h3>
+                            <p>To the maximum extent permitted by law:</p>
+                            <ul>
+                                <li>Choice Communication LLC is not liable for service provider actions or failures</li>
+                                <li>We are not responsible for inaccuracies in displayed information</li>
+                                <li>We do not guarantee service availability or specific pricing</li>
+                                <li>We are not liable for any indirect, incidental, or consequential damages</li>
+                                <li>Our total liability is limited to fees you paid to us</li>
+                            </ul>
+                            
+                            <h3>11. Geographic Limitations</h3>
+                            <p>Our services are intended for customers in the United States. Service availability, pricing, and offerings are specific to U.S. markets. Information may not be accurate or applicable for locations outside the United States.</p>
+                            
+                            <h3>12. Changes to This Disclaimer</h3>
+                            <p>We reserve the right to modify this disclaimer at any time without prior notice. Changes are effective immediately upon posting. Your continued use of the website constitutes acceptance of any changes.</p>
+                            
+                            <h3>13. Contact Information</h3>
+                            <p>If you have questions about this disclaimer, please contact:</p>
+                            <p><strong>Alpha Solutions Hub Inc.</strong><br>
+                            3951 Innovator Dr<br>
+                            Sacramento, CA 95834<br>
+                            Email: info@vzwpay.com<br>
+                            Phone: +1 (833)-268-9840</p>
+                            
+                            <div class="alert alert-warning mt-4" role="alert">
+                                <strong>Final Note:</strong> This disclaimer is part of our Terms and Conditions. By using Alpha Solutions Hub, you agree to all terms, policies, and disclaimers. If you do not agree, please discontinue use of the website immediately.
                             </div>
                         </div>
                     </div>
@@ -149,14 +310,6 @@
         </div>
     </section>
 
-    <!-- Disclaimer Banner -->
-    <section class="disclaimer-banner">
-        <div class="container">
-            <div class="alert alert-info text-center mb-0" role="alert">
-                <strong>We are an authorized retailer of Optimum, Direct TV and Spectrum</strong>
-            </div>
-        </div>
-    </section>
 
     <!-- Disclaimer Section -->
     <!--
@@ -213,7 +366,7 @@
                 <div class="col-12">
                     <div class="footer-disclaimer">
                         <div class="footer-disclaimer-content">
-                            <p><strong>Disclaimer:</strong> This is the Official Site of vzwpay.com (Marketing Partner). We may send updates to the mobile number/email ID registered with us. The content is for information purposes only and does not constitute an offer to avail of any service. Prices mentioned are subject to change without notice and properties mentioned are subject to availability. Images are for representation purposes only. The logos and images used on this website are the exclusive property of their respective owners and are protected under applicable copyright laws. We do not claim any ownership or rights to these materials and they are used on this website solely for informational purposes.</p>
+                            <p><strong>Important Disclosure:</strong> Alpha Solutions Hub is owned and operated by Choice Communication LLC, an independent marketing partner. We are not the official website of any internet or cable provider. All product names, logos, and trademarks belong to their respective owners. We assist customers in exploring and ordering services from participating providers across the United States.</p>
                         </div>
                     </div>
                 </div>
